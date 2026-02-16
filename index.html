@@ -31,7 +31,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* Верхняя планка шкафа */
         .cabinet-header {
             background: #6b5a48;
             height: 40px;
@@ -82,7 +81,6 @@
             position: relative;
         }
 
-        /* Эффект полки (тень под каждым рядом) */
         .medals-container::after {
             content: '';
             display: block;
@@ -109,10 +107,9 @@
             border: 4px solid #f7e29c;
             font-size: 3.5rem;
             position: relative;
-            cursor: pointer; /* Было default, теперь pointer */
+            cursor: pointer;
         }
 
-        /* Блик на медали */
         .medal-item::before {
             content: '';
             position: absolute;
@@ -172,7 +169,6 @@
             border: 1px solid #9c8844;
         }
 
-        /* Анимация появления новой медали */
         @keyframes appear {
             0% { transform: scale(0.2) rotate(-30deg); opacity: 0; }
             80% { transform: scale(1.1) rotate(2deg); }
@@ -183,59 +179,58 @@
             animation: appear 0.4s ease-out;
         }
 
-        /* ========== МОДАЛЬНОЕ ОКНО (МИНИ-ВРАЩАЛКА) ========== */
+        /* МОДАЛЬНОЕ ОКНО */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            visibility: hidden;
             opacity: 0;
-            transition: opacity 0.2s ease, visibility 0.2s;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
         .modal-overlay.active {
-            visibility: visible;
             opacity: 1;
+            visibility: visible;
         }
 
         .modal-card {
-            background: linear-gradient(145deg, #3f3a32, #2b261e);
-            width: 320px;
+            background: linear-gradient(145deg, #3a342b, #251f18);
+            width: 380px;
             max-width: 90vw;
-            border-radius: 60px 60px 40px 40px;
-            border: 3px solid #b99e6b;
-            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.7), inset 0 1px 5px #ecd59c;
-            padding: 25px 20px 30px;
+            border-radius: 50px;
+            border: 3px solid #c9aa73;
+            box-shadow: 0 30px 40px rgba(0,0,0,0.6), inset 0 1px 10px #ffdfa0;
+            padding: 30px 20px 35px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transform: scale(0.9);
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
         }
 
         .active .modal-card {
             transform: scale(1);
         }
 
-        /* Вращающаяся медаль (3D контейнер) */
-        .medal-spinner {
-            width: 180px;
-            height: 180px;
-            margin: 10px 0 15px;
-            perspective: 800px;
+        /* 3D контейнер */
+        .spinner-container {
+            width: 220px;
+            height: 220px;
+            margin: 5px 0 15px;
+            perspective: 1200px;
             cursor: grab;
-            user-select: none;
         }
 
-        .medal-spinner:active {
+        .spinner-container:active {
             cursor: grabbing;
         }
 
@@ -244,110 +239,101 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.05s linear; /* Плавность при вращении */
+            transition: transform 0.1s;
             will-change: transform;
         }
 
-        /* Грани медали (имитация объемной монеты) */
         .medal-face {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #fff3cf, #b28b54);
-            border: 5px solid #f7e29c;
-            box-shadow: inset 0 -5px 15px rgba(0,0,0,0.6), inset 0 5px 15px #fff0b5;
+            background: radial-gradient(circle at 30% 30%, #ffecb3, #b8863d);
+            border: 6px solid #f7d98c;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5), inset 0 10px 20px #fff2c0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 5.5rem;
+            font-size: 7rem;
             backface-visibility: hidden;
-            color: #3a2e1f;
-            text-shadow: 0 2px 5px gold;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* Лицевая сторона */
         .face-front {
-            transform: rotateY(0deg) translateZ(12px);
+            transform: rotateY(0deg) translateZ(15px);
         }
 
-        /* Задняя сторона (зеркальная) */
         .face-back {
-            transform: rotateY(180deg) translateZ(12px);
-            background: radial-gradient(circle at 65% 65%, #b28b54, #6b4f2a);
-            font-size: 5rem;
+            transform: rotateY(180deg) translateZ(15px);
+            background: radial-gradient(circle at 70% 70%, #b8863d, #7a561e);
         }
 
-        /* Торец (имитация ребра) */
-        .medal-edge {
+        .medal-ring {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            transform: rotateY(90deg) translateZ(12px);
-            background: linear-gradient(to right, #c8a87c, #8b6b40, #c8a87c);
-            box-shadow: inset 0 0 10px #2b1e0f;
-            opacity: 0.9;
+            transform: rotateY(90deg) translateZ(15px);
+            background: linear-gradient(to right, #dbb063, #9b732f, #dbb063);
+            box-shadow: inset 0 0 15px #4a3a1f;
         }
 
-        /* Информация под медалью */
         .medal-info {
             text-align: center;
-            margin: 15px 0 10px;
-            color: #f0e0be;
+            margin: 20px 0 15px;
             width: 100%;
         }
 
-        .medal-name {
-            font-size: 2rem;
+        .medal-title {
+            font-size: 2.2rem;
             font-weight: bold;
-            letter-spacing: 2px;
-            text-shadow: 0 3px 0 #4a3f35;
-            background: rgba(0,0,0,0.2);
-            padding: 5px 15px;
-            border-radius: 40px;
-            display: inline-block;
-            margin-bottom: 8px;
-            border: 1px solid #a7875a;
-        }
-
-        .medal-description {
-            font-size: 1.1rem;
-            background: #3e3529;
-            padding: 12px 18px;
+            color: #ffefcf;
+            text-shadow: 0 3px 0 #5a442a;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 20px;
             border-radius: 50px;
-            color: #e6d5b8;
-            border: 1px solid #7b623c;
-            box-shadow: inset 0 2px 5px #1f1a13;
-            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #c7a15e;
+            margin-bottom: 15px;
         }
 
-        .back-button {
+        .medal-desc {
+            background: #2f2a22;
+            padding: 15px 20px;
+            border-radius: 40px;
+            color: #ecdbbd;
+            font-size: 1.1rem;
+            border: 1px solid #9c875b;
+            box-shadow: inset 0 2px 5px #16130e;
+            line-height: 1.4;
+        }
+
+        .close-modal-btn {
             background: #8b764b;
             border: none;
-            padding: 14px 40px;
+            padding: 15px 45px;
             border-radius: 50px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #2b2218;
+            color: #221c14;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             box-shadow: 0 8px 0 #4f3f2b, 0 5px 15px black;
             cursor: pointer;
-            transition: 0.07s linear;
-            margin-top: 15px;
-            border: 1px solid #dbb47a;
+            transition: 0.08s linear;
+            margin-top: 25px;
+            border: 1px solid #ebc280;
             width: 100%;
         }
 
-        .back-button:hover {
-            transform: translateY(3px);
-            box-shadow: 0 4px 0 #4f3f2b, 0 8px 12px black;
+        .close-modal-btn:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #4f3f2b, 0 8px 15px black;
         }
 
-        .back-button:active {
+        .close-modal-btn:active {
             transform: translateY(8px);
-            box-shadow: 0 0 0 #4f3f2b, 0 5px 10px black;
+            box-shadow: 0 0 0 #4f3f2b, 0 5px 12px black;
         }
     </style>
 </head>
@@ -357,11 +343,8 @@
             ⚜️ КОЛЛЕКЦИЯ МЕДАЛЕЙ ⚜️
         </div>
 
-        <!-- Полка с новыми медалями (свежие всегда сверху) -->
         <div class="shelf-label">НОВЫЕ ПОСТУПЛЕНИЯ</div>
-        <div class="medals-container" id="medalGrid">
-            <!-- Медали будут вставлены сюда через JavaScript -->
-        </div>
+        <div class="medals-container" id="medalGrid"></div>
 
         <div class="footer-info">
             <div class="counter" id="medalCounter">У вас 0 медалей</div>
@@ -369,54 +352,51 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО (вращалка) -->
+    <!-- МОДАЛКА -->
     <div class="modal-overlay" id="medalModal">
         <div class="modal-card">
-            <!-- Вращающаяся медаль -->
-            <div class="medal-spinner" id="spinner">
+            <div class="spinner-container" id="spinnerContainer">
                 <div class="medal-3d" id="medal3D">
                     <div class="medal-face face-front" id="modalEmojiFront">🏅</div>
                     <div class="medal-face face-back" id="modalEmojiBack">🏅</div>
-                    <div class="medal-edge"></div>
+                    <div class="medal-ring"></div>
                 </div>
             </div>
 
-            <!-- Информация за что медаль -->
             <div class="medal-info">
-                <div class="medal-name" id="modalMedalName">Название</div>
-                <div class="medal-description" id="modalMedalDesc">Описание достижения</div>
+                <div class="medal-title" id="modalTitle">Название</div>
+                <div class="medal-desc" id="modalDescription">Описание</div>
             </div>
 
-            <!-- Кнопка назад (закрыть) -->
-            <button class="back-button" id="closeModalBtn">← НАЗАД</button>
+            <button class="close-modal-btn" id="closeModalBtn">← НАЗАД</button>
         </div>
     </div>
 
     <script>
         (function() {
-            // ==================== БАЗА ДАННЫХ МЕДАЛЕЙ ====================
+            // База медалей с описаниями
             const medalDatabase = {
-                // Каждой медали добавим поле description (за что получена)
-                "welcome": { name: "Первая встреча", emoji: "🌟", description: "Приветственный дар за вход в канал" },
-                "1": { name: "Пионер", emoji: "🏅", description: "Быть среди первых 100 подписчиков" },
-                "2": { name: "Знаток", emoji: "📚", description: "Правильно ответил на 5 вопросов викторины" },
-                "3": { name: "Друзья", emoji: "🤝", description: "Пригласил трёх друзей в ТГК" },
-                "4": { name: "Активный", emoji: "⚡", description: "Участие в 3 эфирах подряд" },
-                "5": { name: "Ветеран", emoji: "🎯", description: "Год в канале — стойкость и верность" },
-                "summer": { name: "Летняя", emoji: "☀️", description: "Участник летнего марафона 2025" },
-                "gold": { name: "Золотая", emoji: "🥇", description: "Победитель конкурса" },
-                "silver": { name: "Серебряная", emoji: "🥈", description: "Второе место в турнире" },
-                "bronze": { name: "Бронзовая", emoji: "🥉", description: "Третье место, но борьба была жаркой" },
-                "star": { name: "Звезда", emoji: "⭐", description: "Пять раз признан лучшим автором" },
-                "heart": { name: "Сердечная", emoji: "❤️", description: "Помогал новичкам и поддерживал других" },
-                "tgk1": { name: "Юбилей канала", emoji: "🎉", description: "Присутствовал на стриме в честь 1 года каналу" },
-                "42": { name: "Глубокая мысль", emoji: "🔮", description: "Задал вопрос, который поразил всех" },
-                "007": { name: "Агент", emoji: "🕶️", description: "Секретная миссия выполнена" },
-                "quest": { name: "Прохождение", emoji: "🗝️", description: "Прошёл все этапы квеста" }
+                "welcome": { name: "Первая встреча", emoji: "🌟", desc: "Приветственный дар за вход в канал" },
+                "1": { name: "Пионер", emoji: "🏅", desc: "Быть среди первых 100 подписчиков" },
+                "2": { name: "Знаток", emoji: "📚", desc: "Правильно ответил на 5 вопросов викторины" },
+                "3": { name: "Друзья", emoji: "🤝", desc: "Пригласил трёх друзей в ТГК" },
+                "4": { name: "Активный", emoji: "⚡", desc: "Участие в 3 эфирах подряд" },
+                "5": { name: "Ветеран", emoji: "🎯", desc: "Год в канале — стойкость и верность" },
+                "summer": { name: "Летняя", emoji: "☀️", desc: "Участник летнего марафона 2025" },
+                "gold": { name: "Золотая", emoji: "🥇", desc: "Победитель конкурса" },
+                "silver": { name: "Серебряная", emoji: "🥈", desc: "Второе место в турнире" },
+                "bronze": { name: "Бронзовая", emoji: "🥉", desc: "Третье место, но борьба была жаркой" },
+                "star": { name: "Звезда", emoji: "⭐", desc: "Пять раз признан лучшим автором" },
+                "heart": { name: "Сердечная", emoji: "❤️", desc: "Помогал новичкам и поддерживал других" },
+                "tgk1": { name: "Юбилей канала", emoji: "🎉", desc: "Присутствовал на стриме в честь 1 года каналу" },
+                "42": { name: "Глубокая мысль", emoji: "🔮", desc: "Задал вопрос, который поразил всех" },
+                "007": { name: "Агент", emoji: "🕶️", desc: "Секретная миссия выполнена" },
+                "quest": { name: "Прохождение", emoji: "🗝️", desc: "Прошёл все этапы квеста" }
             };
 
             const STORAGE_KEY = 'tgMedalCollection';
-
+            
+            // Загружаем сохранённые медали
             let userMedals = [];
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -425,63 +405,61 @@
                     if (!Array.isArray(userMedals)) userMedals = [];
                 }
             } catch (e) {
-                console.warn("Не удалось загрузить сохраненные медали", e);
+                console.warn("Ошибка загрузки:", e);
                 userMedals = [];
             }
 
+            // Элементы страницы
             const medalGrid = document.getElementById('medalGrid');
             const medalCounter = document.getElementById('medalCounter');
-
+            
             // Элементы модалки
             const modalOverlay = document.getElementById('medalModal');
             const modalFront = document.getElementById('modalEmojiFront');
             const modalBack = document.getElementById('modalEmojiBack');
-            const modalName = document.getElementById('modalMedalName');
-            const modalDesc = document.getElementById('modalMedalDesc');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDescription');
             const medal3D = document.getElementById('medal3D');
-            const spinner = document.getElementById('spinner');
+            const spinner = document.getElementById('spinnerContainer');
             const closeBtn = document.getElementById('closeModalBtn');
 
-            // Для вращения
+            // Переменные для вращения
             let isDragging = false;
-            let startX, startY, currentRotateX = 0, currentRotateY = 0;
+            let startX, startY;
+            let rotateX = 0, rotateY = 0;
 
-            // ==================== ФУНКЦИЯ ОТОБРАЖЕНИЯ МЕДАЛЕЙ ====================
-            function renderMedals(newlyAddedId = null) {
+            // ===== ОТОБРАЖЕНИЕ МЕДАЛЕЙ =====
+            function renderMedals(newMedalId = null) {
                 if (!medalGrid) return;
                 medalGrid.innerHTML = '';
 
                 if (userMedals.length === 0) {
-                    const emptyDiv = document.createElement('div');
-                    emptyDiv.className = 'empty-message';
-                    emptyDiv.textContent = '✨ Коллекция пуста... Получи первую медаль из Telegram! ✨';
-                    medalGrid.appendChild(emptyDiv);
+                    medalGrid.innerHTML = '<div class="empty-message">✨ Коллекция пуста... Получи первую медаль из Telegram! ✨</div>';
                     medalCounter.textContent = 'У вас 0 медалей';
                     return;
                 }
 
+                // Сортируем: новые сверху (мы добавляем в начало, так что порядок уже правильный)
                 userMedals.forEach(medalId => {
                     const medalData = medalDatabase[medalId];
                     if (!medalData) return;
 
                     const medalDiv = document.createElement('div');
                     medalDiv.className = 'medal-item';
-                    if (medalId === newlyAddedId) {
+                    if (medalId === newMedalId) {
                         medalDiv.classList.add('new');
                     }
-                    medalDiv.title = medalData.name;
                     medalDiv.textContent = medalData.emoji || '🏅';
-
-                    // При клике на медаль открываем модалку с этой медалью
-                    medalDiv.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        openMedalModal(medalId);
-                    });
-
+                    medalDiv.title = medalData.name;
+                    
+                    // Клик для открытия модалки
+                    medalDiv.addEventListener('click', () => openModal(medalId));
+                    
                     medalGrid.appendChild(medalDiv);
                 });
 
-                medalCounter.textContent = `У вас ${userMedals.length} ${getMedalWord(userMedals.length)}`;
+                const count = userMedals.length;
+                medalCounter.textContent = `У вас ${count} ${getMedalWord(count)}`;
             }
 
             function getMedalWord(count) {
@@ -490,32 +468,32 @@
                 return 'медалей';
             }
 
-            // ==================== ОТКРЫТЬ МОДАЛКУ С МЕДАЛЬЮ ====================
-            function openMedalModal(medalId) {
+            // ===== ОТКРЫТЬ МОДАЛКУ =====
+            function openModal(medalId) {
                 const medal = medalDatabase[medalId];
                 if (!medal) return;
 
-                // Устанавливаем эмодзи на обе стороны (можно сделать разные, но для простоты одинаковые)
-                modalFront.textContent = medal.emoji || '🏅';
-                modalBack.textContent = medal.emoji || '🏅'; 
-                modalName.textContent = medal.name;
-                modalDesc.textContent = medal.description || 'Нет описания';
+                // Заполняем данные
+                modalFront.textContent = medal.emoji;
+                modalBack.textContent = medal.emoji;
+                modalTitle.textContent = medal.name;
+                modalDesc.textContent = medal.desc;
 
-                // Сброс вращения на начальное (0)
-                currentRotateX = 0;
-                currentRotateY = 0;
-                updateMedalRotation();
+                // Сбрасываем вращение
+                rotateX = 0;
+                rotateY = 0;
+                updateRotation();
 
                 // Показываем окно
                 modalOverlay.classList.add('active');
             }
 
-            // Обновление трансформации 3D медали
-            function updateMedalRotation() {
-                medal3D.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+            // Обновление поворота 3D
+            function updateRotation() {
+                medal3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             }
 
-            // ==================== ЗАКРЫТИЕ МОДАЛКИ ====================
+            // ===== ЗАКРЫТИЕ МОДАЛКИ =====
             function closeModal() {
                 modalOverlay.classList.remove('active');
             }
@@ -525,66 +503,82 @@
                 if (e.target === modalOverlay) closeModal();
             });
 
-            // ==================== ВРАЩЕНИЕ МЫШЬЮ/ТАЧЕМ ====================
+            // ===== ВРАЩЕНИЕ МЕДАЛИ =====
             spinner.addEventListener('mousedown', startDrag);
             spinner.addEventListener('touchstart', startDrag, { passive: false });
-            window.addEventListener('mouseup', stopDrag);
-            window.addEventListener('touchend', stopDrag);
+            
             window.addEventListener('mousemove', onDrag);
             window.addEventListener('touchmove', onDrag, { passive: false });
+            
+            window.addEventListener('mouseup', stopDrag);
+            window.addEventListener('touchend', stopDrag);
 
             function startDrag(e) {
-                e.preventDefault(); // для touch
+                e.preventDefault();
                 isDragging = true;
-                const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
-                startX = clientX;
-                startY = clientY;
+                const coords = getCoords(e);
+                startX = coords.x;
+                startY = coords.y;
+            }
+
+            function onDrag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const coords = getCoords(e);
+                const currentX = coords.x;
+                const currentY = coords.y;
+
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+
+                // Чувствительность вращения
+                rotateY += deltaX * 0.6;
+                rotateX -= deltaY * 0.4;
+                
+                // Ограничиваем наклон по вертикали (чтобы не улететь)
+                rotateX = Math.max(-70, Math.min(70, rotateX));
+
+                updateRotation();
+
+                startX = currentX;
+                startY = currentY;
             }
 
             function stopDrag() {
                 isDragging = false;
             }
 
-            function onDrag(e) {
-                if (!isDragging) return;
-                e.preventDefault();
-
-                const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
-
-                const deltaX = clientX - startX;
-                const deltaY = clientY - startY;
-
-                // Чувствительность: перемещение мыши -> вращение
-                currentRotateY += deltaX * 0.5;  // горизонтально
-                currentRotateX -= deltaY * 0.3;  // вертикально (с ограничением для естественности)
-
-                // Не даём слишком сильно уходить вверх/вниз, чтобы не терять ориентацию
-                currentRotateX = Math.max(-70, Math.min(70, currentRotateX));
-
-                updateMedalRotation();
-
-                startX = clientX;
-                startY = clientY;
+            function getCoords(e) {
+                if (e.type.startsWith('touch')) {
+                    return {
+                        x: e.touches[0].clientX,
+                        y: e.touches[0].clientY
+                    };
+                }
+                return {
+                    x: e.clientX,
+                    y: e.clientY
+                };
             }
 
-            // ==================== ДОБАВЛЕНИЕ МЕДАЛИ ====================
+            // ===== ДОБАВЛЕНИЕ НОВОЙ МЕДАЛИ =====
             function addMedal(medalId) {
                 if (!medalDatabase[medalId]) {
-                    console.warn('Медаль не найдена:', medalId);
-                    alert('❌ Эта медаль ещё не создана в коллекции');
+                    alert('❌ Эта медаль не найдена в коллекции');
                     return false;
                 }
 
                 if (!userMedals.includes(medalId)) {
-                    userMedals.unshift(medalId);
+                    userMedals.unshift(medalId); // Добавляем в начало
+                    
                     try {
                         localStorage.setItem(STORAGE_KEY, JSON.stringify(userMedals));
                     } catch (e) {
-                        console.warn('Ошибка сохранения', e);
+                        console.warn('Ошибка сохранения');
                     }
-                    renderMedals(medalId);
+                    
+                    renderMedals(medalId); // Перерисовываем с анимацией
                     alert(`🎉 Поздравляем! Вы получили медаль: ${medalDatabase[medalId].name}`);
                     return true;
                 } else {
@@ -593,38 +587,45 @@
                 }
             }
 
-            // ==================== ОБРАБОТКА ПАРАМЕТРОВ ИЗ URL ====================
-            function checkUrlForNewMedal() {
+            // ===== ПРОВЕРКА URL =====
+            function checkUrlForMedal() {
+                // Проверяем хэш #medal=название
                 const hash = window.location.hash.substring(1);
                 if (hash.startsWith('medal=')) {
                     const medalId = hash.split('=')[1];
                     if (medalId) {
-                        setTimeout(() => {
-                            addMedal(medalId);
-                        }, 100);
-                        history.replaceState(null, '', window.location.pathname + window.location.search);
-                        return true;
+                        setTimeout(() => addMedal(medalId), 200);
+                        history.replaceState(null, '', window.location.pathname);
                     }
+                    return;
                 }
 
-                const urlParams = new URLSearchParams(window.location.search);
-                const medalIdFromQuery = urlParams.get('medal') || urlParams.get('id');
-                if (medalIdFromQuery) {
-                    setTimeout(() => {
-                        addMedal(medalIdFromQuery);
-                    }, 100);
-                    const newUrl = window.location.pathname + window.location.hash;
-                    history.replaceState(null, '', newUrl);
-                    return true;
+                // Проверяем параметры ?medal=название
+                const params = new URLSearchParams(window.location.search);
+                const medalParam = params.get('medal');
+                if (medalParam) {
+                    setTimeout(() => addMedal(medalParam), 200);
+                    history.replaceState(null, '', window.location.pathname);
                 }
             }
 
-            // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+            // ===== ИНИЦИАЛИЗАЦИЯ =====
             renderMedals();
-            checkUrlForNewMedal();
+            checkUrlForMedal();
 
-            console.log('🔥 Медаль-шкаф готов! Кликни на любую медаль, чтобы рассмотреть в 3D.');
-            console.log('Доступные медали:', Object.keys(medalDatabase).join(', '));
+            // Для демо: добавляем пару медалей если пусто (чтобы было с чем играть)
+            if (userMedals.length === 0) {
+                // Добавляем демо-медали для наглядности (можно убрать в реальном проекте)
+                setTimeout(() => {
+                    if (userMedals.length === 0) {
+                        addMedal('welcome');
+                        addMedal('gold');
+                        addMedal('star');
+                    }
+                }, 500);
+            }
+
+            console.log('✅ Шкаф медалей работает! Кликни на любую медаль, чтобы покрутить её.');
         })();
     </script>
 </body>
