@@ -906,16 +906,7 @@
             checkUrlForMedal();
 
             // Демо-медали разных уровней
-            if (userCollection.length === 0) {
-                setTimeout(() => {
-                    if (userCollection.length === 0) {
-                        addMedal('welcome');    // level 1
-                        addMedal('silver');      // level 2
-                        addMedal('star');         // level 3
-                        addMedal('gold');         // level 4
-                    }
-                }, 500);
-            }
+            
 
             console.log('✅ Шкаф медалей с уровнями: серебро, сапфир, аметист, золото (свечение)');
         })();
